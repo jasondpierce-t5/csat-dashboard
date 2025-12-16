@@ -49,7 +49,7 @@ class GaugeErrorBoundary extends Component {
  * @param {Object} props
  * @param {Object} props.gaugeConfig - The gauge configuration from database
  */
-export default function GaugeWrapper({ gaugeConfig }) {
+export default function GaugeWrapper({ gaugeConfig, onLinkClick }) {
   const {
     expandedGaugeId,
     toggleExpandedGauge,
@@ -96,6 +96,7 @@ export default function GaugeWrapper({ gaugeConfig }) {
             isExpanded={isExpanded}
             onExpand={handleExpand}
             isLoading={isLoading}
+            onLinkClick={onLinkClick}
           />
 
           {/* Drill-down panel */}
@@ -115,7 +116,7 @@ export default function GaugeWrapper({ gaugeConfig }) {
 /**
  * Render a section of gauges
  */
-export function GaugeSection({ title, gauges, defaultExpanded = true }) {
+export function GaugeSection({ title, gauges, defaultExpanded = true, onLinkClick }) {
   const [isExpanded, setIsExpanded] = useState(defaultExpanded)
 
   if (!gauges || gauges.length === 0) return null
@@ -159,7 +160,7 @@ export function GaugeSection({ title, gauges, defaultExpanded = true }) {
           }}
         >
           {gauges.map(gauge => (
-            <GaugeWrapper key={gauge.id} gaugeConfig={gauge} />
+            <GaugeWrapper key={gauge.id} gaugeConfig={gauge} onLinkClick={onLinkClick} />
           ))}
         </div>
       </div>

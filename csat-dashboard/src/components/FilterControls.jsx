@@ -57,11 +57,15 @@ export function FilterControls({ techNames, filters, onFilterChange }) {
     onFilterChange({ ...filters, ratings: [] })
   }
 
-  const handleClearAll = () => {
-    onFilterChange({ startDate: '', endDate: '', techNames: [], ratings: [] })
+  const handleClearCompany = () => {
+    onFilterChange({ ...filters, company: null })
   }
 
-  const hasActiveFilters = filters.startDate || filters.endDate || filters.techNames?.length > 0 || filters.ratings?.length > 0
+  const handleClearAll = () => {
+    onFilterChange({ startDate: '', endDate: '', techNames: [], ratings: [], company: null })
+  }
+
+  const hasActiveFilters = filters.startDate || filters.endDate || filters.techNames?.length > 0 || filters.ratings?.length > 0 || filters.company
   const selectedTechCount = filters.techNames?.length || 0
   const selectedRatingCount = filters.ratings?.length || 0
 
@@ -146,6 +150,22 @@ export function FilterControls({ techNames, filters, onFilterChange }) {
           </div>
         )}
       </div>
+
+      {/* Company Filter (shown when active) */}
+      {filters.company && (
+        <div className="flex items-center gap-2 px-3 py-1.5 text-sm bg-accent-blue/10 text-accent-blue border border-accent-blue/20 rounded">
+          <span>Company: {filters.company}</span>
+          <button
+            onClick={handleClearCompany}
+            className="hover:text-accent-blue/70 transition-colors"
+            title="Clear company filter"
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+      )}
 
       {/* Rating Multi-Select */}
       <div className="relative" ref={ratingDropdownRef}>

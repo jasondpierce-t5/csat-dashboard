@@ -1,7 +1,9 @@
 {
   "permissions": {
     "allow": [
-      "Bash(cmd /c \"node --version && npm --version\")"
+      "Bash(cmd /c \"node --version && npm --version\")",
+      "Bash(powershell -Command \"cd ''c:\\Users\\JasonPierce\\OneDrive\\Code\\claude\\csat\\csat-dashboard''; npm run build\")",
+      "Bash(powershell -Command \"cd ''c:\\Users\\JasonPierce\\OneDrive\\Code\\claude\\csat''; git add -A; git status\")"
     ]
   }
 }

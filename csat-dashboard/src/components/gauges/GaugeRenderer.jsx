@@ -18,7 +18,8 @@ export default function GaugeRenderer({
   timestamp,
   isExpanded = false,
   onExpand,
-  isLoading = false
+  isLoading = false,
+  onLinkClick
 }) {
   const typeKey = gaugeConfig?.gauge_type?.type_key
 
@@ -99,12 +100,13 @@ export default function GaugeRenderer({
         }
 
       case 'data_table': {
-        // DataTable expects: data, columns
+        // DataTable expects: data, columns, onRowClick
         const dataConfig = gaugeConfig?.data_config || {}
         return {
           ...baseProps,
           data: data || [],
-          columns: dataConfig.columns || []
+          columns: dataConfig.columns || [],
+          onRowClick: onLinkClick
         }
       }
 
@@ -115,7 +117,7 @@ export default function GaugeRenderer({
           ...mergedDisplayConfig
         }
     }
-  }, [typeKey, gaugeConfig, data, timestamp, isExpanded, onExpand, mergedDisplayConfig])
+  }, [typeKey, gaugeConfig, data, timestamp, isExpanded, onExpand, mergedDisplayConfig, onLinkClick])
 
   // If no component found, show error state
   if (!GaugeComponent) {

@@ -82,9 +82,24 @@ export default function DashboardContainer() {
       endDate: newFilters.endDate,
       customFilters: {
         tech_first_name: newFilters.techNames || [],
-        rating: newFilters.ratings || []
+        rating: newFilters.ratings || [],
+        company: newFilters.company ? [newFilters.company] : []
       }
     })
+  }
+
+  // Handle link clicks from DataTable (e.g., company name)
+  const handleLinkClick = (columnKey, value) => {
+    if (columnKey === 'company') {
+      // Filter to show only this company's responses
+      setFilters({
+        ...filters,
+        customFilters: {
+          ...filters.customFilters,
+          company: [value]
+        }
+      })
+    }
   }
 
   // Convert context filters back to FilterControls format
@@ -92,7 +107,8 @@ export default function DashboardContainer() {
     startDate: filters.startDate || '',
     endDate: filters.endDate || '',
     techNames: filters.customFilters?.tech_first_name || [],
-    ratings: filters.customFilters?.rating || []
+    ratings: filters.customFilters?.rating || [],
+    company: filters.customFilters?.company?.[0] || null
   }), [filters])
 
   // Error state
@@ -178,6 +194,7 @@ export default function DashboardContainer() {
             title={sectionName}
             gauges={gaugesBySection.sections[sectionName]}
             defaultExpanded={true}
+            onLinkClick={handleLinkClick}
           />
         ))
       ) : (
