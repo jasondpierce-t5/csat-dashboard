@@ -1,0 +1,5 @@
+{
+  "buildCommand": "cd csat-dashboard && npm install && npm run build",
+  "outputDirectory": "csat-dashboard/dist",
+  "framework": "vite"
+}
